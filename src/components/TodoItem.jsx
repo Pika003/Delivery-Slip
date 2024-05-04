@@ -6,7 +6,7 @@ function TodoItem({ todo, Tid }) {
   const [tnumber, setTnumber] = useState(todo.number);
   const [taddress, setTaddress] = useState(todo.address);
   const [popup, setPopup] = useState(false);
-  const { updateTodo, deleteTodo, toggleComplete } = useTodo();
+  const { updateTodo, deleteTodo } = useTodo();
 
   const editTodo = () => {
     updateTodo(todo.id, { ...todo, todo: { tnumber, taddress } });

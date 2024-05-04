@@ -4,7 +4,6 @@ import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import { info } from "autoprefixer";
 
 function App() {
   const logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/India_Post_Logo.svg/2560px-India_Post_Logo.svg.png";
@@ -12,8 +11,8 @@ function App() {
   const formattedDate = today.toISOString().slice(0, 10);
 
   const [todos, setTodos] = useState([]);
-  const [name, setName] = useState([]);
-  const [post, setPost] = useState([]);
+  const [name, setName] = useState('');
+  const [post, setPost] = useState('');
   const [showPDF, setShowPDF] = useState(true);
   const [showInfo, setShowInfo] = useState(true);
 
@@ -47,18 +46,24 @@ function App() {
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos1"));
-    const {name, post} = JSON.parse(localStorage.getItem("info"));
     if (todos && todos.length > 0) {
       setTodos(todos);
     }
-    if (info) {
-      console.log(name, post)
-      setName(name);
-      setPost(post);
-    }else{
-      setShowInfo(true);
+  }, []); // Add an empty dependency array to run this effect only once on component mount
+  
+  useEffect(() => {
+    try {
+      const { name, post } = JSON.parse(localStorage.getItem("info"));
+      // Check if name is not empty before setting state
+      if (name !== "") {
+        setName(name);
+        setPost(post);
+      }
+    } catch (error) {
+      console.log('Error parsing JSON from localStorage:', error);
     }
-  }, []);
+  }, []); // Add an empty dependency array to run this effect only once on component mount
+  
 
   useEffect(() => {
     localStorage.setItem("todos1", JSON.stringify(todos));
