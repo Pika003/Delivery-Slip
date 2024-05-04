@@ -4,15 +4,18 @@ import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import { info } from "autoprefixer";
 
 function App() {
-  const logoUrl =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/India_Post_Logo.svg/2560px-India_Post_Logo.svg.png";
+  const logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/India_Post_Logo.svg/2560px-India_Post_Logo.svg.png";
   const today = new Date();
   const formattedDate = today.toISOString().slice(0, 10);
 
   const [todos, setTodos] = useState([]);
+  const [name, setName] = useState([]);
+  const [post, setPost] = useState([]);
   const [showPDF, setShowPDF] = useState(true);
+  const [showInfo, setShowInfo] = useState(true);
 
   const addTodo = (todo) => {
     setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev]);
@@ -38,16 +41,29 @@ function App() {
     );
   };
 
+  const closePopup = ()=>{
+    setShowInfo(false);
+  }
+
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos1"));
+    const {name, post} = JSON.parse(localStorage.getItem("info"));
     if (todos && todos.length > 0) {
       setTodos(todos);
+    }
+    if (info) {
+      console.log(name, post)
+      setName(name);
+      setPost(post);
+    }else{
+      setShowInfo(true);
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("todos1", JSON.stringify(todos));
-  }, [todos]);
+    localStorage.setItem("info", JSON.stringify({name,post}));
+  }, [todos, name, post]);
 
   const createPDF = async () => {
     setShowPDF(true);
@@ -60,7 +76,7 @@ function App() {
         fillColor: [240, 240, 240],
       },
       startY: 40,
-      margin: { top: 40, right: 10, bottom: 10, left: 10 },
+      margin: { top: 46, right: 10, bottom: 10, left: 10 },
       tableWidth: "auto",
       bodyStyles: { cellPadding: 4 },
     };
@@ -89,17 +105,18 @@ function App() {
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
 
-        doc.text("Department Of Post India", pageWidth / 2, 10, {
+        doc.text("Department Of Post India", pageWidth / 2, 14, {
           align: "center",
           fontSize: 40,
         });
         doc.text(
-          "Delivery Slip Of Sagar Krishna Nagar BO-743374",
+          "Delivery Slip Of Rudranagar SO-743374",
           pageWidth / 2,
           20,
           { align: "center", fontSize: 40 }
         );
-        doc.text("Name Of the Postman : Subhajit Maity", 10, 30);
+        doc.text(`Name Of the Postman : ${name}`, 10, 30);
+        doc.text(`Post Office : ${post}`, 10, 37);
         doc.text(`Issue Date: ${formattedDate}`, pageWidth - 10, 30, {
           align: "right",
         });
@@ -120,19 +137,41 @@ function App() {
 
   return (
     <TodoProvider
-      value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
+      value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete}}
     >
       <div>
+        {showInfo && (
+          <div className="z-10 fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center">
+          <div className="relative bg-gray-600 w-full lg:w-96 h-[26rem] lg:h-[26rem] rounded-md flex flex-col items-center pt-10">
+            <h2 className="text-xl font-semibold font-mono mb-5">Add Your Information</h2>
+
+            <label className=" font-semibold ml-[-10rem] mt-5">Postman Name : </label>
+            <input
+              className="m-2 px-4 py-2 w-72 rounded-md border-none outline-none bg-gray-800 text-white "
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <label className=" font-semibold ml-[-9rem] mt-5">Post Office Name : </label>
+            <input
+              className="m-2 px-4 py-2 w-72 rounded-md border-none outline-none bg-gray-800 text-white "
+              type="text"
+              value={post}
+              onChange={(e) => setPost(e.target.value)}
+            />
+            <div onClick={closePopup} className="bg-gray-900 m-2 py-3 w-72 rounded-md text-gray-300 mt-10 cursor-pointer text-center">Submit Info</div>
+          </div>
+        </div>
+        )}
         <div
           onClick={createPDF}
-          className="bg-green-500 w-fit absolute py-3 px-6 rounded-md cursor-pointer right-28 top-32 lg:right-14 lg:top-10"
+          className="bg-green-500 lg:w-fit w-72 text-center absolute py-3 px-6 rounded-md cursor-pointer right-4 top-32 lg:right-14 lg:top-10"
         >
           Export
         </div>
         <div>
           <h1 className="text-center text-black font-semibold lg:text-2xl m-8 font-mono">
-            Department Of Post India <br /> Delivery Slip Of Sagar Krishna Nagar
-            BO-743374
+            Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743374
           </h1>
           <div className="mt-24 lg:mt-0">
             <TodoForm />
@@ -167,12 +206,14 @@ function App() {
                   textAlign: "center",
                 }}
               >
-                Department Of Post India <br /> Delivery Slip Of Sagar Krishna
-                Nagar BO-743374
+                Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743374
               </h1>
             </caption>
             <caption style={{ textAlign: "left", marginLeft: "10px" }}>
-              Name Of the Postman : Subhajit Maity
+              Name Of the Postman : {name}
+            </caption>
+            <caption style={{ textAlign: "left", marginLeft: "10px" }}>
+              Post Office : {post}
             </caption>
             <caption style={{ textAlign: "right", marginRight: "10px" }}>
               Issue Date: {formattedDate}
@@ -182,7 +223,7 @@ function App() {
                 <th>SL NO.</th>
                 <th>Article Number</th>
                 <th>Addressee Details</th>
-                <th>Addressee's Signature</th>
+                <th>Addressee's Signature or <br />Reason for non delivery</th>
               </tr>
             </thead>
             <tbody>
