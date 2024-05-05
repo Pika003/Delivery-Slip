@@ -4,7 +4,7 @@ import { useTodo } from '../contexts/TodoContext'
 function TodoForm() {
     const [showcopy, setShowCopy] = useState(false)
     const [showremcopy, setShowRemCopy] = useState(false)
-    const [newloc, setNewloc] = useState("")
+    // const [newloc, setNewloc] = useState("")
     const [number, setNumber] = useState("")
     const [address, setAddress] = useState("")
     const [location, setLocation] = useState("")
@@ -33,9 +33,9 @@ function TodoForm() {
     }
 
     const submitCopy =()=>{
-      setAllLocation(prev => [...prev, newloc]);
+      setAllLocation(prev => [...prev, location]);
       setShowCopy(false);
-      setNewloc('');
+      // setNewloc('');
     }
 
     const addCopy=()=>{
@@ -45,7 +45,7 @@ function TodoForm() {
     const handleRemoveLocation = (valueToRemove) => {
       const updatedLocations = allLocation.filter((location) => location !== valueToRemove);
       setAllLocation(updatedLocations);
-      setLocation('');
+      // setLocation('');
       setShowRemCopy(prev => !prev)
     };
 
@@ -80,8 +80,8 @@ function TodoForm() {
               <textarea 
               type="text" 
               placeholder='Add another copy'
-              value={newloc}
-              onChange={(e)=> setNewloc((e.target.value).toUpperCase())}
+              value={location}
+              onChange={(e)=> setLocation((e.target.value).toUpperCase())}
               className="resize-none px-4 py-3 rounded-md border-none outline-none w-56 h-12 font-bold text-black bg-gray-600 text-base "
               />
               <div onClick={submitCopy} className='p-3 rounded-md bg-gray-600'>✅</div>

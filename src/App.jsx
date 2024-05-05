@@ -124,7 +124,7 @@ function App() {
           fontSize: 40,
         });
         doc.text(
-          "Delivery Slip Of Rudranagar SO-743374",
+          "Delivery Slip Of Rudranagar SO-743373",
           pageWidth / 2,
           20,
           { align: "center", fontSize: 40 }
@@ -179,13 +179,13 @@ function App() {
         )}
         <div
           onClick={createPDF}
-          className="bg-green-500 lg:w-fit w-72 text-center absolute py-3 px-6 rounded-md cursor-pointer right-4 top-32 lg:right-14 lg:top-10"
+          className="bg-green-500 lg:w-fit w-72 text-center absolute py-3 px-6 rounded-md cursor-pointer right-4 top-32 lg:right-14 lg:top-10 text-white  font-mono font-semibold"
         >
-          Export
+          Genarate PDF
         </div>
         <div>
-          <h1 className="text-center text-black font-semibold lg:text-2xl m-8 font-mono">
-            Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743374
+          <h1 className="text-center text-gray-100 font-semibold lg:text-2xl m-8 font-sans text-xl">
+            Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743373
           </h1>
           <div className="mt-24 lg:mt-0">
             <TodoForm />
@@ -195,11 +195,11 @@ function App() {
               <thead>
                 <tr>
                   <th className="border border-gray-300 p-2">SL NO.</th>
-                  <th className="border border-gray-300 p-2 lg:block hidden">Article Number</th>
+                  <th className="border border-gray-300 p-2 ">Article Number</th>
                   <th className="border border-gray-300 p-2">
                     Addressee Details
                   </th>
-                  <th className="border border-gray-300 p-2">
+                  <th className="border border-gray-300 p-2 lg:block hidden">
                     Addressee's Signature
                   </th>
                   <th className="border border-gray-300 p-2">Edit Button</th>
@@ -220,7 +220,7 @@ function App() {
                   textAlign: "center",
                 }}
               >
-                Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743374
+                Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743373
               </h1>
             </caption>
             <caption style={{ textAlign: "left", marginLeft: "10px" }}>
