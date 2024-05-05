@@ -6,7 +6,7 @@ function TodoForm() {
     const [newloc, setNewloc] = useState("")
     const [number, setNumber] = useState("")
     const [address, setAddress] = useState("")
-    const [location, setLocation] = useState("KRISHNANAGAR")
+    const [location, setLocation] = useState("")
     const [allLocation, setAllLocation] = useState([])
     const {addTodo} = useTodo()
 
