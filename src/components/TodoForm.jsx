@@ -3,6 +3,7 @@ import { useTodo } from '../contexts/TodoContext'
 
 function TodoForm() {
     const [showcopy, setShowCopy] = useState(false)
+    const [showremcopy, setShowRemCopy] = useState(false)
     const [newloc, setNewloc] = useState("")
     const [number, setNumber] = useState("")
     const [address, setAddress] = useState("")
@@ -38,8 +39,15 @@ function TodoForm() {
     }
 
     const addCopy=()=>{
-      setShowCopy(true);
+      setShowCopy(prev => !prev);
     }
+
+    const handleRemoveLocation = (valueToRemove) => {
+      const updatedLocations = allLocation.filter((location) => location !== valueToRemove);
+      setAllLocation(updatedLocations);
+      setLocation('');
+      setShowRemCopy(prev => !prev)
+    };
 
   return (
     <form onSubmit={add} className="mb-8 flex items-center justify-center flex-col lg:flex-row gap-3">
@@ -57,8 +65,9 @@ function TodoForm() {
             onChange={(e)=> setAddress((e.target.value).toUpperCase())}
             className="resize-none px-4 py-3 rounded-md border-none outline-none w-72 h-12 font-bold text-black bg-gray-600 text-base "
         />
-        <div className='flex gap-4 flex-wrap items-center justify-center'>
-          <select className='px-4 py-3 rounded-md bg-gray-600 w-56' value={location} onChange={e=>setLocation(e.target.value)}>
+        <div className='flex gap-3 flex-wrap items-center justify-center'>
+          <div onClick={()=> setShowRemCopy(prev => !prev)} className='p-3 rounded-md bg-gray-600'>➖</div>
+          <select className='px-4 py-3 rounded-md bg-gray-600 w-44' value={location} onChange={e=>setLocation(e.target.value)}>
             {allLocation && (
               allLocation.map((copy, index)=>(
                 <option key={index} value={copy}>{copy}</option>
@@ -76,6 +85,18 @@ function TodoForm() {
               className="resize-none px-4 py-3 rounded-md border-none outline-none w-56 h-12 font-bold text-black bg-gray-600 text-base "
               />
               <div onClick={submitCopy} className='p-3 rounded-md bg-gray-600'>✅</div>
+            </div>
+          )}
+          {showremcopy && (
+            <div className='flex gap-4 flex-wrap items-center justify-center'>
+             <select className='px-4 py-3 rounded-md bg-gray-600 w-56' value={location} onChange={e=>setLocation(e.target.value)}>
+                {allLocation && (
+                  allLocation.map((copy, index)=>(
+                    <option key={index} value={copy}>{copy}</option>
+                  ))
+                )}
+              </select>
+              <div onClick={() => handleRemoveLocation(location)} className='p-3 rounded-md bg-gray-600'>✅</div>
             </div>
           )}
         </div>

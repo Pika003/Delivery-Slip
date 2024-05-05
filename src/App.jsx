@@ -7,8 +7,17 @@ import "jspdf-autotable";
 
 function App() {
   const logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/India_Post_Logo.svg/2560px-India_Post_Logo.svg.png";
-  const today = new Date();
-  const formattedDate = today.toISOString().slice(0, 10);
+
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const timestamp = Date.now();
+  const today = new Date(timestamp);
+
+  const day = today.getDate();
+  const monthIndex = today.getMonth();
+  const year = today.getFullYear();
+
+  const monthAbbreviation = months[monthIndex];
+  const formattedDate = `${day < 10 ? '0' + day : day}-${monthAbbreviation}-${year}`;
 
   const [todos, setTodos] = useState([]);
   const [name, setName] = useState('');
