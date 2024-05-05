@@ -1,8 +1,19 @@
-# React + Vite
+## What is delivery-slip ?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+it is a react web-app that genarate delivery-slip for post office.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can install this package via npm using the following command:
+
+```
+npm install
+
+```
+```
+npm run dev
+
+```
+
+
+![Screenshot 2024-05-05 200016](https://github.com/Pika003/Delivery-Slip/assets/104189733/9cfa2af3-ed6a-4e39-8571-332a50f69fb0)
