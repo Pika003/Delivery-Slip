@@ -4,6 +4,7 @@ import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import ImgToText from "./components/ImgToText";
 
 function App() {
   const logoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/India_Post_Logo.svg/2560px-India_Post_Logo.svg.png";
@@ -179,12 +180,12 @@ function App() {
         )}
         <div
           onClick={createPDF}
-          className="bg-green-500 lg:w-fit w-72 text-center absolute py-3 px-6 rounded-md cursor-pointer right-4 top-32 lg:right-14 lg:top-10 text-white  font-mono font-semibold"
+          className="bg-green-500 lg:w-fit w-72 text-center absolute py-3 px-6 rounded-md cursor-pointer right-5 top-32 lg:right-14 lg:top-10 text-white  font-mono font-semibold"
         >
           Genarate PDF
         </div>
         <div>
-          <h1 className="text-center text-gray-100 font-semibold lg:text-2xl m-8 font-sans text-xl">
+          <h1 className="text-center text-gray-100 font-semibold lg:text-2xl m-8 font-sans text-xl mb-10">
             Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743373
           </h1>
           <div className="mt-24 lg:mt-0">
@@ -258,6 +259,10 @@ function App() {
             </tbody>
           </table>
         )}
+        <hr className="my-5"/>
+        <div className="flex items-center justify-center flex-col gap-3">
+          <ImgToText/>
+        </div>
       </div>
     </TodoProvider>
   );
