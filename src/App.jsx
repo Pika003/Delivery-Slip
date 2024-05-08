@@ -25,6 +25,7 @@ function App() {
   const [post, setPost] = useState('');
   const [showPDF, setShowPDF] = useState(true);
   const [showInfo, setShowInfo] = useState(true);
+  const [showCard, setShowCard] = useState(false);
 
   const addTodo = (todo) => {
     setTodos((prev) => [{ id: Date.now(), ...todo }, ...prev]);
@@ -180,7 +181,7 @@ function App() {
         )}
         <div
           onClick={createPDF}
-          className="bg-green-500 lg:w-fit w-72 text-center absolute py-3 px-6 rounded-md cursor-pointer right-5 top-32 lg:right-14 lg:top-10 text-white  font-mono font-semibold"
+          className="bg-green-500 lg:w-fit w-72 text-center absolute py-3 px-6 rounded-md cursor-pointer right-8 top-32 lg:right-14 lg:top-10 text-white  font-mono font-semibold"
         >
           Genarate PDF
         </div>
@@ -188,7 +189,17 @@ function App() {
           <h1 className="text-center text-gray-100 font-semibold lg:text-2xl m-8 font-sans text-xl mb-10">
             Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743373
           </h1>
-          <div className="mt-24 lg:mt-0">
+          {showCard && (
+            <div className="flex items-center justify-center flex-col gap-4 pt-10">
+              <ImgToText/>
+          </div>
+          )}
+          
+          <div className="flex items-center justify-center pt-10 pb-0 lg:pb-5 lg:pt-3">
+            <div className="bg-blue-500 p-3 w-fit rounded-md" onClick={()=> setShowCard(prev => !prev)}>Show OCR</div>
+          </div>
+
+          <div className="mt-10 lg:mt-0">
             <TodoForm />
           </div>
           <div className="flex items-center justify-center overflow-x-auto">
@@ -259,10 +270,6 @@ function App() {
             </tbody>
           </table>
         )}
-        <hr className="my-5"/>
-        <div className="flex items-center justify-center flex-col gap-3">
-          <ImgToText/>
-        </div>
       </div>
     </TodoProvider>
   );
