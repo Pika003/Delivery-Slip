@@ -94,19 +94,19 @@ function ImgToText() {
         <textarea
           value={text}
           readOnly
-          className="w-[96vw] h-[15rem] text-center lg:w-[30vw] lg:h-[40vh] mb-10"
+          className="w-[96vw] h-[15rem] text-center lg:w-[30vw] lg:h-[40vh] mb-0"
         />
       )}
       <div className="text-sm flex flex-col items-center">
-        <div>
-        <button className="bg-blue-500 ml-1 p-3 rounded-md" onClick={handleCapture}>Start Webcam</button>
-        <button className="bg-blue-500 ml-3 p-3 rounded-md" onClick={handleSnapshot}>Capture Image</button>
-        <button className="bg-green-500 ml-3 p-3 rounded-md" onClick={handleOcr}>OCR</button>
-        </div>
         {Video && (
           <video ref={videoRef} autoPlay playsInline muted />
         )}
+        <div className="mt-3">
+        <button className="bg-blue-500 ml-1 p-3 rounded-md" onClick={handleCapture}>Start Webcam</button>
+        <button className="bg-blue-500 ml-3 p-3 rounded-md" onClick={handleSnapshot}>Capture Image</button>
+        <button className="bg-green-500 ml-3 p-3 rounded-md" onClick={handleOcr}>OCR</button>
         {imageSrc && see && <img src={imageSrc} alt="Captured" className="mt-5"/>}
+        </div>
       </div>
     </>
   )

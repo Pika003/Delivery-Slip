@@ -225,50 +225,47 @@ function App() {
           </div>
         </div>
         {showPDF && (
-          <table id="table-pdf" className="w-[100vw] lg:w-[80vw] lg:ml-10">
-            <caption>
-              <h1
-                style={{
-                  textAlign: "center",
-                }}
-              >
-                Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743373
-              </h1>
-            </caption>
-            <caption style={{ textAlign: "left", marginLeft: "10px" }}>
-              Name Of the Postman : {name}
-            </caption>
-            <caption style={{ textAlign: "left", marginLeft: "10px" }}>
-              Post Office : {post}
-            </caption>
-            <caption style={{ textAlign: "right", marginRight: "10px" }}>
-              Issue Date: {formattedDate}
-            </caption>
-            <thead>
-              <tr>
-                <th>SL NO.</th>
-                <th>Article Number</th>
-                <th>Addressee Details</th>
-                <th>Addressee's Signature or <br />Reason for non delivery</th>
+          <table id="table-pdf" className="w-[100vw] lg:w-[80vw] ml-auto mb-5 mr-auto bg-gray-700 text-gray-200 border border-gray-300">
+          <caption>
+            <h1 style={{ textAlign: "center" }}>
+              Department Of Post India <br /> Delivery Slip Of Rudranagar SO-743373
+            </h1>
+          </caption>
+          <caption style={{ textAlign: "left", marginLeft: "10px" }}>
+            Name Of the Postman : {name}
+          </caption>
+          <caption style={{ textAlign: "left", marginLeft: "10px" }}>
+            Post Office : {post}
+          </caption>
+          <caption style={{ textAlign: "right", marginRight: "10px" }}>
+            Issue Date: {formattedDate}
+          </caption>
+          <thead>
+            <tr>
+              <th className="border px-4 py-2 bg-gray-800">SL NO.</th>
+              <th className="border px-4 py-2 bg-gray-800">Article Number</th>
+              <th className="border px-4 py-2 bg-gray-800">Addressee Details</th>
+              <th className="border px-4 py-2 bg-gray-800">
+                Addressee's Signature or <br /> Reason for non-delivery
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {todos.map((item, i) => (
+              <tr key={item.id} className="pl-10">
+                <td className="border px-4 py-2">{i + 1}</td>
+                <td className="border px-4 py-2">{item.number}</td>
+                <td className="border px-4 py-2">
+                  {item.address.split("\n").map((line, index) => (
+                    <p key={index}>{line} <br /></p>
+                  ))}
+                </td>
+                <td className="border px-4 py-2"></td>
               </tr>
-            </thead>
-            <tbody>
-              {todos.map((item, i) => (
-                <tr key={item.id} className="pl-10">
-                  <td>{i + 1}</td>
-                  <td>{item.number}</td>
-                  <td>
-                    {item.address.split("\n").map((line, index) => (
-                      <p key={index}>
-                        {line} <br />
-                      </p>
-                    ))}
-                  </td>
-                  <td></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ))}
+          </tbody>
+        </table>
+        
         )}
       </div>
     </TodoProvider>
